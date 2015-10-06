@@ -20,6 +20,8 @@ public class LogUtil {
             Log.v(tag, msg);
         }
     }
+
+
     public static void d(String tag, String msg) {
         if (LEVEL <= DEBUG) {
             Log.d(tag, msg);
