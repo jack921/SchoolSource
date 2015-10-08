@@ -124,9 +124,6 @@ public class ParseHtml{
             int end=source.indexOf("[");
             int result=source.indexOf(String.valueOf(week),-1);
 
-            String temp=source.substring(result + 2, result + 3);
-            String temp2=source.substring(result + 1, result + 2);
-            Log.e("sourcestring",source.substring(result,result+1));
             if(week>=10){
                 if(!(source.substring(result-1,result).equals(" ")&&
                         (source.substring(result+2,result+3).equals(" ")
