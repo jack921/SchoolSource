@@ -123,6 +123,23 @@ public class ParseHtml{
         try{
             int end=source.indexOf("[");
             int result=source.indexOf(String.valueOf(week),-1);
+
+            String temp=source.substring(result + 2, result + 3);
+            String temp2=source.substring(result + 1, result + 2);
+            Log.e("sourcestring",source.substring(result,result+1));
+            if(week>=10){
+                if(!(source.substring(result-1,result).equals(" ")&&
+                        (source.substring(result+2,result+3).equals(" ")
+                                ||source.substring(result+2,result+3).equals("周")))){
+                    result=-1;
+                }
+            }else{
+                if(!(source.substring(result-1,result).equals(" ")&&
+                        (source.substring(result+1,result+2).equals(" ")
+                                ||source.substring(result+1,result+2).equals("周")))){
+                    result=-1;
+                }
+            }
             if(result==-1||result>end){
                 return false;
             }else{
@@ -140,7 +157,7 @@ public class ParseHtml{
             List<String> result=new ArrayList<>();
             int nameend=test.indexOf("(");
             int placestart=test.indexOf("[");
-            int placeend=test.indexOf("]");
+            int placeend = test.indexOf("]");
             String name=test.substring(0,nameend);
             String place=test.substring(placestart+1,placeend);
             result.add(name);

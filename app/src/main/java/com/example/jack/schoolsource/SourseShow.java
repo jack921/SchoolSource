@@ -147,7 +147,6 @@ public class SourseShow extends Activity {
 
     //选择课表显示
     public void selectView(int i,int j,String source,int week){
-
         if(i==0&&j==0){
             text00=(TextView)findViewById(R.id.mon1);
             build(text00,source,week);
