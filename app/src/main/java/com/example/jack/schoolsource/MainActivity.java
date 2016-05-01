@@ -74,9 +74,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         new Thread(){
             @Override
             public void run() {
-                Map<String,String> map=NetWork.getCode();
-                if(map!=null){
-                    String result=NetWork.login(user,pass,map);
+                List<Map<String,String>> param=NetWork.getCode();
+                if(param!=null){
+                    String result=NetWork.login(user,pass,param);
                     if(result==null){
                         sendMessage(getBaseContext().getString(R.string.updateServerError));
                     }else if(result.equals("p")){

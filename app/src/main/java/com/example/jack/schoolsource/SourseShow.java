@@ -402,16 +402,15 @@ public class SourseShow extends Activity {
     class updateSource extends AsyncTask<String,String,String[][]>{
 
         int week;
-
         @Override
         protected String[][] doInBackground(String... params) {
             String result;
             if(params[0].equals("")&&params[1].equals("")){
                 result="p";
             }else{
-                Map<String,String> map=NetWork.getCode();
-                if(map!=null){
-                    result= NetWork.login(params[0],params[1], map);
+                List<Map<String,String>> param=NetWork.getCode();
+                if(param!=null){
+                    result= NetWork.login(params[0],params[1],param);
                     if(result==null){
                         publishProgress(getBaseContext().getString(R.string.updateNameError));
                         return null;

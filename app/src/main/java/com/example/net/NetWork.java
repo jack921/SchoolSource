@@ -38,30 +38,34 @@ public class NetWork {
     public static String loginhost="http://class.sise.com.cn:7001/sise/login.jsp";
 
     //获取隐藏的input
-    public static Map<String,String> getCode(){
+    public static List<Map<String,String>> getCode(){
                 try{
                     Document doc = Jsoup.connect(loginhost).get();
-                    Map<String,String> map=new HashMap<String, String>();
+                    List<Map<String,String>> param=new ArrayList<Map<String,String>>();
+                    Map<String,String> map=null;
                     Elements ListInput=doc.getElementsByAttributeValue("type","hidden");
                     for(Element element:ListInput){
+                        map=new HashMap<String, String>();
                         map.put("name",element.attr("name"));
                         map.put("value",element.attr("value"));
+                        param.add(map);
                     }
-                    return map;
+                    return param;
                     }catch(Exception e) {
-                    e.printStackTrace();
                     return null;
                 }
     }
 
     //登陆
-    public static String login(final String username,final String password,final Map<String,String> map){
+    public static String login(final String username,final String password,final List<Map<String,String>> param){
         DefaultHttpClient httpClient=new DefaultHttpClient();
         HttpPost httpPost=new HttpPost(logincheck);
         List<NameValuePair> params=new ArrayList<>();
         params.add(new BasicNameValuePair("username",username));
         params.add(new BasicNameValuePair("password",password));
-        params.add(new BasicNameValuePair(map.get("name"),map.get("value")));
+        for(int i=0;i<param.size()-1;i++){
+            params.add(new BasicNameValuePair(param.get(i).get("name"),param.get(i).get("value")));
+        }
         try {
             UrlEncodedFormEntity entity=new UrlEncodedFormEntity(params,"utf-8");
             httpPost.setEntity(entity);
@@ -78,8 +82,9 @@ public class NetWork {
                     }
                 }
                 HttpEntity entity1=httpResponse.getEntity();
-                String result=ParseHtml.parseResult(EntityUtils.toString(entity1));
-                return result;
+                String test=EntityUtils.toString(entity1);
+                //String result=ParseHtml.parseResult(EntityUtils.toString(entity1));
+                return "p";
             }else{
                 return null;
             }
